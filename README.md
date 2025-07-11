@@ -1,10 +1,15 @@
 # Why Slack C2
-This project was designed to be a proof of concept/training ground for me to test the things I was learning in SEC670, MalDev academy, and others. 
+This project was designed as a proof of concept/training ground for me to test the concepts I was learning in SEC670, MalDev Academy, and other sources. 
 
 ![SlackC2](images/SlackC2.png)
 
 
+# How can I test it?
+You'll need to create a Slack App and assign OAuth tokens. I didn't do anything too fancy, and I just hardcoded my bot token in the implant located in the `Config.c`. You'll also need to assign the proper permissions on your bot token, like channel:read, etc. You can find more information on Slack's API documentation.    
+
+
 # Lessons Learned
+These are simply my thoughts, observations, and struggles as I went through this process. 
 
 - Using a 3rd party platform for C2 can impose certain limitations
 	
@@ -18,9 +23,9 @@ This project was designed to be a proof of concept/training ground for me to tes
   
 - Make sure you design your implant with kill switches, or with an exit function. I made the mistake of running some implants that I couldn't kill because I was only developing in the context of having a single implant. That brings me to my next point:
 
-- Design the implant with multiple being able to run at the same time. Originally, I designed an implant to parse the last X messages from a slack channel, ignore the ones with replies, and reply to each message in a thread with the results from executed command. This was great for a single implant per channel. I did not think about this when I was having X implants running at the same time fighting to respond first to a message as a "first come first serve" style of operation. Eventually I had to make a new channel for each implant I compiled per host/user context.
+- Design the implant with multiple being able to run at the same time. Originally, I designed an implant to parse the last X messages from a slack channel, ignore the ones with replies, and reply to each message in a thread with the results from executed command. This was great for a single implant per channel. I did not think about this when I was having X implants running at the same time fighting to respond first to a message as a "first come first serve" style of operation. Eventually, I had to make a new channel for each implant I compiled per host/user context.
 
-- As a general programming philosophy, write smaller functions that do simple things instead of large functions that do lots of things. I wrote each command function (ps, upload, shell, username, etc) that it would take in a struct that held  ~5 elements. I only was accessing 2 in most all of them, and it was unnecessary to parse out these values from a struct rather than accept only the parameters I wanted. 
+- As a general programming philosophy, write smaller functions that do simple things instead of large functions that do lots of things. I wrote each command function (ps, upload, shell, username, etc) that it would take in a struct that held  ~5 elements. I was only accessing 2 in most of my functions, and it was unnecessary to parse out these values from a struct rather than accept only the parameters I wanted. 
 ```c
 /*
 This at the time seemed easier and more clean. After all, I'm only passing
