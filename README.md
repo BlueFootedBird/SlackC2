@@ -23,7 +23,11 @@ This project was designed to be a proof of concept/training ground for me to tes
 - As a general programming philosophy, write smaller functions that do simple things instead of large functions that do lots of things. I wrote each command function (ps, upload, shell, username, etc) that it would take in a struct that held  ~5 elements. I only was accessing 2 in most all of them, and it was unnecessary to parse out these values from a struct rather than accept only the parameters I wanted. 
 ```c
 /*
-This at the time seemed easier and more clean. After all, I'm only passing one variable! How neat! However, I'd consider this to be a pretty bad practice that negatively effects the readability of the code. I can't really infer what the function is doing from the parameters, and I can't tell what members of the slackCmd variable are important.
+This at the time seemed easier and more clean. After all, I'm only passing
+one variable! How neat! However, I'd consider this to be a pretty bad practice
+that negatively effects the readability of the code. I can't really infer what
+the function is doing from the parameters, and I can't tell what members of the
+slackCmd variable are important.
 */
 ps(SlackCmd* slackCmd) {
   
@@ -36,7 +40,9 @@ ps(SlackCmd* slackCmd) {
 }
 
 /*
-This second version of the code allows me to reuse this function in other programs. If I were to try and use the function above in a new function, I'd have to untangle the Slack-specific programming logic out of it.
+This second version of the code allows me to reuse this function in other programs.
+If I were to try and use the function above in a new function, I'd have to untangle
+the Slack-specific programming logic out of it.
 */
 ps(char* buffer, DWORD* bufferSize) {
   
