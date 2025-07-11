@@ -21,7 +21,7 @@ This project was designed to be a proof of concept/training ground for me to tes
 - Design the implant with multiple being able to run at the same time. Originally, I designed an implant to parse the last X messages from a slack channel, ignore the ones with replies, and reply to each message in a thread with the results from executed command. This was great for a single implant per channel. I did not think about this when I was having X implants running at the same time fighting to respond first to a message as a "first come first serve" style of operation. Eventually I had to make a new channel for each implant I compiled per host/user context.
 
 - As a general programming philosophy, write smaller functions that do simple things instead of large functions that do lots of things. I wrote each command function (ps, upload, shell, username, etc) that it would take in a struct that held  ~5 elements. I only was accessing 2 in most all of them, and it was unnecessary to parse out these values from a struct rather than accept only the parameters I wanted. 
-  ```c
+```c
 /*
 This at the time seemed easier and more clean. After all, I'm only passing one variable! How neat! However, I'd consider this to be a pretty bad practice that negatively effects the readability of the code. I can't really infer what the function is doing from the parameters, and I can't tell what members of the slackCmd variable are important.
 */
@@ -34,7 +34,6 @@ ps(SlackCmd* slackCmd) {
   // Do things
 
 }
-
 
 /*
 This second version of the code allows me to reuse this function in other programs. If I were to try and use the function above in a new function, I'd have to untangle the Slack-specific programming logic out of it.
